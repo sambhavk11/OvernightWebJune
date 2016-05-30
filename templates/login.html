@@ -67,9 +67,9 @@
 											title="AMaze" />Hi, John
 									</a></li>-->
 
-									<li><a href="#">Sign In</a></li>
+									<li><a href="/login/">Sign In</a></li>
 									</li>
-									<li><a href="#">Sign Up</a></li>
+									<li><a href="/signup/">Sign Up</a></li>
 
 
 									</li>
@@ -90,19 +90,20 @@
 
 				<div class="col-md-4" style="padding-left: 30%; width: 100%">
 
-					<form style="width: 50%">
+					<form style="width: 50%" method="POST" action="/authenticateUser/">
+					{% csrf_token %}
 						<div class="form-group form-group-icon-left">
 							<h3>Login to Overnight</h3>
 							<br> <label>Email</label> <input class="form-control"
 								style="padding-left: 4px;" placeholder="e.g. johndoe@gmail.com"
-								type="text" />
+								type="text" name="email"/>
 						</div>
 						<div class="form-group form-group-icon-left">
 							<label>Password</label> <input class="form-control"
-								style="padding-left: 4px;" type="password" placeholder="" />
+								style="padding-left: 4px;" type="password" placeholder="" name="passwd"/>
 						</div>
 						<center>
-							<input class="btn btn-primary" type="submit" value="Login" />
+							<button class="btn btn-primary" type="submit"  >Login</button>
 						</center>
 						<br>
 						<br>

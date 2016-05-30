@@ -62,10 +62,11 @@
 								<ul class="top-user-area-list list list-horizontal list-border">
 
 
-									<li class="top-user-area-avatar">
+								{%if request.user %}    	<li class="top-user-area-avatar">
                                         <a href="/showUserProfile/" onclick="submit">
-                                            <img class="origin round" src= "{% static 'img/40x40.png' %}" alt="Image Alternative text" title="AMaze" />Hi, User</a>
+                                        <img class="origin round" src= "{% static 'img/40x40.png' %}" alt="Image Alternative text" title="AMaze" />Hi, {{request.user.first_name}}</a>
                                     </li>
+                        {% endif %}
 
 
 

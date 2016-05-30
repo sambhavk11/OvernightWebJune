@@ -53,3 +53,27 @@ class Package(models.Model):
     class Meta:
         managed=True
         db_table='Package'
+
+class Traveller(models.Model):
+    miles=models.IntegerField(default=0)
+    worldpercent=models.IntegerField(default=0)
+    cityCount=models.IntegerField(default=0)
+    trips=models.IntegerField(default=0)
+    countryCount=models.IntegerField(default=0)
+    location=models.TextField(default= " ")
+    fname=models.TextField(default= " ")
+    lname=models.TextField(default= " ")
+    email=models.TextField(default= " ")
+    phone=models.TextField(default=" ")
+    homeAirport=models.TextField(default=" ")
+    streetAddr=models.TextField(default=" ")
+    unit=models.TextField(default=" ")
+    city=models.TextField(default= " ")
+    state=models.TextField(default= " ")
+    gender=models.TextField(default="male")
+    zip=models.TextField(default=" ")
+    country=models.TextField(default=" ")
+
+    class Meta:
+        managed=True
+        db_table="Traveller"

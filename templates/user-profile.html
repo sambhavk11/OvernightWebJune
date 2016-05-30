@@ -59,12 +59,13 @@
 							<div class="top-user-area clearfix">
 								<ul class="top-user-area-list list list-horizontal list-border">
 
-									<li class="top-user-area-avatar"><a
+									{% if request.user %}<li class="top-user-area-avatar"><a
 										href="/showUserProfile/" onclick="submit"> <img class="origin round"
 											src="{% static 'img/40x40.png'%}" alt="Image Alternative text"
-											title="AMaze" />Hi, John
-									</a></li>
-									<li><a href="#">Logout</a></li>
+											title="AMaze" />Hi, {{request.user.first_name}}
+									</a></li> {% endif %}
+									
+									<li><a href="/logoutUser/">Logout</a></li>
 									<!--<li><a href="#">Sign In</a></li>
 									</li>
 									<li><a href="#">Sign Up</a></li>-->
@@ -94,8 +95,8 @@
 						<div class="user-profile-avatar text-center">
 							<img src="{% static 'img/300x300.png'%}" alt="Image Alternative text"
 								title="AMaze" />
-							<h5>John Doe</h5>
-							<p>Member Since May 2012</p>
+							<h5>{{request.user.first_name}}&nbsp;{{request.user.last_name}}</h5>
+							<p>Member Since {{request.user.date_joined | date:" M,Y"}}</p>
 						</div>
 						<ul class="list user-profile-nav">
 							<li><a href="/showUserProfile/" onclick="submit"><i class="fa fa-user"></i>Overview</a>

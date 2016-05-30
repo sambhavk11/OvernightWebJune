@@ -60,7 +60,7 @@ def loginUser (request):
 
 
 def signup (request):
-    return render(request,'signup.html')
+    return render(request,'signupUser.html')
 
 def manageContent(request):
     return render(request,'manageContent.html')
@@ -209,6 +209,57 @@ def getMax():
 #     valarr=val.split(",")
 #     for each in valarr:
 
+def  signupUser(request):
+    if request.method=='POST':
+        fname=request.POST['fname']
+        lname=request.POST['lname']
+        email=request.POST['email']
+        remail=request.POST['remail']
+        passwd=request.POST['passwd']
+        repass=request.POST['repass']
+        gender=request.POST['gender']
+        country=request.POST['country']
+        city=request.POST['city']
+        street=request.POST['street']
+        unit=request.POST['unit']
+        zipcode=request.POST['zip']
+
+        if repass == passwd:
+            user = User.objects.create_user(username=email, email=email, password=passwd)
+            user.first_name = fname
+            user.last_name = lname
+            user.save()
+            # modUser=django.contrib.auth.models.AuthUser.objects.get(email=email)
+            # modUser.first_name=fname
+            # modUser.last_name=lname
+            # modUser.save()
+            if user is None:
+                return HttpResponse("User Cannot be created")
+
+            newTraveller=models.Traveller(fname=fname,lname=lname,email=email,gender=gender,unit=unit,streetAddr=street,city=city,zip=zipcode,country=country,homeAirport=city)
+            newTraveller.save()
+            subject, from_email, to = 'Welcome to Overnight', 'overnightjunedep@gmail.com', email
+            text_content = 'Hello!! ' + fname + "\n We Welcome You to Overnight"
+            html_content = '<p>Hello ' + fname + '<br> We Welcome you to <strong>Overnight</strong> .</p>'
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+            return render(request,"login.html")
+
+def authenticateUser(request):
+    if request.method=="POST":
+        email=request.POST["email"]
+        password=request.POST["passwd"]
+        user = authenticate(username=email, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                resp=landing_page(request)
+                return resp
+
+
 def logout_user(request):
     logout(request)
+    request.user=None
     return render(request,"landingpage.html")
