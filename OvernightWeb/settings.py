@@ -137,8 +137,8 @@ STATIC_URL = '/static/'
 
 #email credentials settings
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'overnight-asia.mail.protection.outlook.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'overnightjunedep@gmail.com'
-EMAIL_HOST_PASSWORD = 'Project@2016'
+EMAIL_HOST_USER = 'ahshida@overnight.asia'
+EMAIL_HOST_PASSWORD = 'Madmaran87!'
 #email credentials end
