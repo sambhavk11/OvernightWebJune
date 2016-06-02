@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render
 import json
+from searchModule import queryBuilder as qb
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.template import RequestContext
@@ -41,11 +42,6 @@ def get_content(request):
         print "outside"
     # return HttpResponse(json.dumps({'data': res}), content_type="application/json")
     return render(request, 'landingpage.html', {'data': res})
-def showSearchresult(request):
-    city=request.GET['searchbar']
-    print city
-    hoteldata=models.HotelInfo.objects.filter(Destination=city).values()
-    return render(request,'searchresults_bali.html',{'data':hoteldata})
 
 def showSearchresultJakarta(request):
     return render(request, 'searchresults_jakarta.html')
@@ -65,8 +61,6 @@ def signup (request):
 def manageContent(request):
     return render(request,'manageContent.html')
 
-def showBookingPage(request):
-    return render(request, 'bookingdetails.html')
 
 def showBookingConfirmation(request):
     return render(request, 'bookingconfirmation.html')
@@ -257,6 +251,40 @@ def authenticateUser(request):
                 login(request, user)
                 resp=landing_page(request)
                 return resp
+
+def showSearchresult(request):
+    webquery=request.GET['searchbar']
+    posarr,facilities=qb.associateSentiment(webquery=webquery)
+    print posarr
+    print facilities
+    area =posarr[1]
+
+    hoteldata=models.HotelInfo.objects.filter(Destination__icontains=area,HotelServices__icontains=facilities[1]).values()
+    return render(request,'searchresults_bali.html',{'data':hoteldata})
+
+
+
+def showBookingPage(request):
+    hotelName=request.GET.get("hotelName")
+    request.session["sess_hotelName"]=request.GET.get("hotelName")
+    hoteldata=models.HotelInfo.objects.all().filter(HotelName=hotelName).values()
+    print hotelName
+    print hoteldata
+    roomdata=models.Roominfo.objects.all().filter(HotelName=hotelName).values()
+    print roomdata
+    return render(request, 'bookingdetails.html',{'hoteldata':hoteldata,'roomdata':roomdata})
+
+def callPriceRefresh(request):
+    hotelName=request.session['sess_hotelName']
+    roomType=request.GET.get('roomType')
+    hoteldata = models.HotelInfo.objects.all().filter(HotelName=hotelName).values()
+    price=models.Roominfo.objects.all().filter(HotelName=hotelName,roomType=roomType).values('ratePerNight')
+    roomdata = models.Roominfo.objects.all().filter(HotelName=hotelName).values()
+    print roomdata
+    return render(request, 'bookingdetails.html', {'hoteldata': hoteldata, 'roomdata': roomdata})
+
+
+
 
 
 def logout_user(request):

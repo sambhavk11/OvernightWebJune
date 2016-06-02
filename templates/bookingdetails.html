@@ -63,7 +63,7 @@
                                         <li class="top-user-area-avatar"><a
                                              href="/showUserProfile/" onclick="submit"> <img class="origin round"
                                                 src="{% static 'img/40x40.png'%}" alt="Image Alternative text"
-                                                title="AMaze" />Hi, John
+                                                title="AMaze" />Hi, {{request.user.first_name}}
                                         </a></li>
                                         <li><a href="#">Logout</a></li>
                                         <!--<li><a href="#">Sign In</a></li>
@@ -94,8 +94,7 @@
 
 
             <div class="container">
-
-
+{% for eachHotel in hoteldata %} 
                 
 
                     <div class="col-md-4" style="float: right; background-color: #ed8323; border-radius:8px;">
@@ -104,8 +103,8 @@
                             <div class="text-center"> 
 
                                 <p>Booking Summary</p><br>
-                                <p align="justify">Hotel .................................................:$100(USD)</p>
-                                <p align="justify">Attractions .......................................:$120(USD)</p>
+                                <p align="justify">Hotel .................................................:$ {{eachHotel.PriceByDate}} (USD)</p>
+                                <p align="justify">Attractions .......................................:$00(USD)</p>
                                 <p align="justify">Service Taxes....................................:$30(USD)</p><br>
                                 <p align="justify">Total...................................................:$250(USD)</p><br>
                             </div>
@@ -114,14 +113,17 @@
                     </div>
                     
                  <div class="row">
-                 <form>
+                 <form action="/callPriceRefresh/">
                 <div class="input-daterange" data-date-format="MM d, D">
                     <div class="row">
                         <div class="col-md-6">
                         <h3>Hotel Details</h3> <br>
-                            <h3> <font color="#ff5a00;">Vasanti Seminyak Resort</font></h3>
+                            <h3> <font color="#ff5a00;">{{eachHotel.HotelName}}</font></h3>
                             <i class="fa fa-map-marker"></i> Jl. Petitenget No.99, Seminyak, Kuta Utara, Kabupaten Badung, Bali, Indonesia.<br>
-                            Room Type: <font color="#ff5a00;">Deluxe</font>
+                            Room Type:<select class="form-control" style="width : 50%" name="roomType">
+										{% for eachRoom in roomdata%}<option name="{{eachRoom.roomType}}">{{eachRoom.roomType}}</option>{% endfor %}                            
+                            </select>
+                            <button class="btn btn-primary btn-lg" type="submit"> Check Prices</button>
                             <br>
                            <hr/> 
                         </div>
@@ -141,48 +143,12 @@
                                     out</label> <input class="form-control" value="May 1, Sun"name="end" type="text" />
                             </div>
                         </div>
-
+{% endfor%}
+                
                          <!-- Attractions Row-->
 
 
-        <div class="col-md-9" ><br>
-          <h4>Why don’t you complete your trip with these activities?<br>
-            We carefully curate these experiences.</h4><br>
-          <div class="col-md-4"> <div class="booking-item-img-wrap">
-              <img style="border-radius:5px;" src="{% static 'img/bitmap2.png'%}"> 
-              </div> 
-        </div>
-
-            <div class="col-md-4"> <div class="booking-item-img-wrap">
-              <img style="border-radius:5px;"src="{% static 'img/bitmap3.png'%}"> 
-              </div> 
-        </div>
-
-            <div class="col-md-4"> <div class="booking-item-img-wrap">
-              <img style="border-radius:5px;"src="{% static 'img/Bitmap.png'%}"> 
-              </div> 
-        </div>
-
-        </div>
-<div class="col-md-9"><br>
           
-          <div class="col-md-4"> <div class="booking-item-img-wrap">
-              <img style="border-radius:5px;"src="{% static 'img/bitmap2.png'%}"> 
-              </div> 
-        </div>
-
-            <div class="col-md-4"> <div class="booking-item-img-wrap">
-              <img style="border-radius:5px;"src="{% static 'img/Bitmap.png'%}"> 
-              </div> 
-        </div>
-
-            <div class="col-md-4"> <div class="booking-item-img-wrap">
-              <img style="border-radius:5px;" src="{% static 'img/bitmap3.png'%}"> 
-              </div> 
-        </div>
-
-        </div>
-                        
 
         </div>
                     </div>
@@ -252,7 +218,7 @@
   </script>
 </form>
      </div>    
-        <!----->
+        
 
     <div class="col-md-11   " style="text-align: right;">
 

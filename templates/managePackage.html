@@ -128,7 +128,7 @@
 				<br>	<textarea class="form-control" name="services" type="text" rows="4" cols="50" placeholder ="List services,use commas"/>
 </textarea>		
 
-<br>	<select name="roomType">
+<br>	<select name="roomType" class="form-control">
 		
 		{% for eachRoom in data%}<option value="{{eachRoom.roomType}}">{{eachRoom.roomType}}</option>{% endfor %}			
 			

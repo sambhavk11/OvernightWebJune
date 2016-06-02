@@ -124,12 +124,12 @@
 
 	<div class="container">
 
-		<form>
-			<div class="input-daterange" data-date-format="MM d, D">
+		<form >
+			<div class="input-daterange" data-date-format="yyyy-mm-dd">
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group form-group-icon-left">
-							<h4 id="results">We Found 5 Hotels in Bali, Indonesia</h4>
+							<h4 id="results">We found the following results </h4>
 
 						</div>
 					</div>
@@ -148,17 +148,17 @@
 				</div>
 			</div>
 		</form>
-
+{% for eachHotel in data%}
+<form action="/showBooking/?roomtype={{request.session.sess_roomtype}}&hotelName={{eachHotel.HotelName}}">
 		<div class="row">
 			<div class="col-md-12 " style="margin: 0 auto;">
 				<ul class="booking-list">
 
 
-{% for eachHotel in data%}{{eachHotel.HotelAmens}}
-{% for eachService in eachHotel.HotelServices %}{% endfor %}
+{{eachHotel.HotelServices}}
 					<!--Number 1-->
 					<li>
-
+				
 						<div class="col-md-12">
 							<div class="header">
 								<br>
@@ -170,7 +170,7 @@
 						</div>
 						<!-- end of col md 12-->
 						<div class="col-md-6" style="margin: 0 auto;">
-
+					
 							<ul class="slimmenu" id="slimmenu">
 								<li class="active"><a href="#">Services</a>
 									<ul style="max-height: 300px; overflow: auto;">
@@ -189,10 +189,11 @@
 										<li><a href="#">Luggage storage</a></li>
 									</ul></li>
 
+					
 								<li class="active"><a href="#">Rooms Available</a>
 									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Petita</a></li>
-										<li><a href="#">Comforta</a></li>
+										<li><a href="/showBooking/?roomtype=Petita">Petita</a></li>
+										<li><a href="/showBooking/?roomtype=Comforta">Comforta</a></li>
 
 									</ul></li>
 							</ul>
@@ -208,7 +209,11 @@
 								<div class="col-md-2">
 									<h5>From</h5>
 									<span class="booking-item-price">{{eachHotel.PriceByDate}}</span>
-									<form action="#"><button class="btn btn-primary">Book Now</button></form>
+									<input type="hidden" name="hotelName" value="{{eachHotel.HotelName}}"/>
+									<!--form action="#"--><button class="btn btn-primary">Book Now</button>
+									
+									
+				</form>
 								</div>
 
 								<div class="col-md-4">
@@ -233,332 +238,14 @@
 
 					</li>{% endfor %}
 
-					<!--Number 2-->
-					<li>
-
-						<div class="col-md-12">
-							<div class="header">
-								<br>
-								<h3 class="booking-item-title">Vasanti Seminyak Resort</h3>
-							</div>
-
-
-						</div>
-						<!-- end of col md 8-->
-						<div class="col-md-6" style="margin: 0 auto;">
-							<ul class="slimmenu" id="slimmenu">
-								<li class="active"><a href="#">Services</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">24 Hour Room Service</a></li>
-										<li><a href="#">Child Care</a></li>
-										<li><a href="#">Concierge</a></li>
-										<li><a href="#">Express check-in/check-out</a></li>
-										<li><a href="#">Valet parking</a></li>
-
-
-									</ul></li>
-
-								<li class="active"><a href="#">Facilities</a>
-									<ul style="max-height: 300px; overflow: auto;">
-
-										<li><a href="#">Luggage storage</a></li>
-										<li><a href="#">Meeting facilities</a></li>
-										<li><a href="#">Safety deposit boxes</a></li>
-										<li><a href="#">Smoking area</a></li>
-										<li><a href="#">Wi-Fi</a></li>
-
-									</ul></li>
-
-								<li class="active"><a href="#">Rooms Available</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Studio 20</a></li>
-										<li><a href="#">Studio 25</a></li>
-										<li><a href="#">Studio 40</a></li>
-
-									</ul></li>
-							</ul>
-							<br>
-							<p class="booking-item-address">
-								<i class="fa fa-map-marker"></i> Jl. Petitenget No.99, Seminyak, Kuta Utara, Kabupaten Badung, Bali, Indonesia.<br>
-								<br> <a href="#">Show Map</a>
-							</p>
-
-						</div> <a class="booking-item">
-							<div class="row">
-
-								<div class="col-md-2">
-									<h5>From</h5>
-									<span class="booking-item-price">$100</span><form action="/showBooking/"><button class="btn btn-primary" onclick="submit" >Book Now</button></form>
-								</button>
-								</div>
-
-								<div class="col-md-4">
-
-
-									<div class="booking-item-img-wrap">
-										<img src= "{% static 'img/vasanti.jpg'%}"  alt="Image Alternative text"
-											title="" />
-										<div class="booking-item-img-num">
-											<i class="fa fa-picture-o"></i>8
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-							<!--end of div row-->
-
-					</a>
-
-					</li>
-
-					<!--Number 3-->
-					<li>
-
-						<div class="col-md-12">
-							<div class="header">
-								<br>
-								<h3 class="booking-item-title">Anantara</h3>
-							</div>
-
-
-						</div>
-						<!-- end of col md 8-->
-						<div class="col-md-6" style="margin: 0 auto;">
-							<ul class="slimmenu" id="slimmenu">
-								<li class="active"><a href="#">Services</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">24 Hour Room Service</a></li>
-										<li><a href="#">Child Care</a></li>
-										<li><a href="#">Concierge</a></li>
-										<li><a href="#">Dry Cleaning & Laundry</a></li>
-										<li><a href="#">Doctor on Call</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Facilities</a>
-									<ul style="max-height: 300px; overflow: auto;">
-
-										<li><a href="#">Business Center</a></li>
-										<li><a href="#">Spa</a></li>
-										<li><a href="#">Gym</a></li>
-										<li><a href="#">Safety Deposit Box</a></li>
-										<li><a href="#">Meeting/banquet facilities</a></li>
-										<li><a href="#">Wi-Fi</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Rooms Available</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Deluxe</a></li>
-										<li><a href="#">Grand Deluxe</a></li>
-										<li><a href="#">Suite</a></li>
-										<li><a href="#">Grand Suite</a></li>
-										<li><a href="#">Presedential Suite</a></li>
-									</ul></li>
-							</ul>
-							<br>
-							<p class="booking-item-address">
-								<i class="fa fa-map-marker"></i> Jl. Camplung Tanduk, Seminyak, Kuta, Kabupaten Badung, Bali, Indonesia.<br>
-								<br> <a href="#">Show Map</a>
-							</p>
-
-						</div> <a class="booking-item" href="#">
-							<div class="row">
-
-								<div class="col-md-2">
-									<h5>From</h5>
-									<span class="booking-item-price">$500</span><span
-										class="btn btn-primary">Book Now</span>
-								</div>
-
-								<div class="col-md-4">
-
-
-									<div class="booking-item-img-wrap">
-										<img src= "{% static 'img/anantara.jpg'%}"  alt="Image Alternative text"
-											title="" />
-										<div class="booking-item-img-num">
-											<i class="fa fa-picture-o"></i>8
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-							<!--end of div row-->
-
-					</a>
-
-					</li>
-
-
-
-
-					<!--4-->
-
-					<li>
-
-						<div class="col-md-12">
-							<div class="header">
-								<br>
-								<h3 class="booking-item-title">The Kana Kuta Bali</h3>
-							</div>
-
-
-						</div>
-						<!-- end of col md 8-->
-						<div class="col-md-6" style="margin: 0 auto;">
-							<ul class="slimmenu" id="slimmenu">
-								<li class="active"><a href="#">Services</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">24-hour front desk</a></li>
-										<li><a href="#">Room service</a></li>
-										<li><a href="#">Concierge</a></li>
-										<li><a href="#">Laundry</a></li>
-										<li><a href="#">Valet parking</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Facilities</a>
-									<ul style="max-height: 300px; overflow: auto;">
-
-										<li><a href="#">Facilities for disabled guests</a></li>
-										<li><a href="#">Meeting facilities</a></li>
-										<li><a href="#">Smoking area</a></li>
-										<li><a href="#">Safety Deposit Box</a></li>
-										<li><a href="#">Luggage storage</a></li>
-										<li><a href="#">Wi-Fi</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Rooms Available</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Superior</a></li>
-										<li><a href="#">Deluxe</a></li>
-										<li><a href="#">Junior Suite</a></li>
-										<li><a href="#">Executive Suite</a></li>
-										<li><a href="#">Deluxe Suite</a></li>
-										<li><a href="#">Oria Suite</a></li>
-									</ul></li>
-							</ul>
-							<br>
-							<p class="booking-item-address">
-								<i class="fa fa-map-marker"></i> Jln. Setiabudi No. 8, Kuta, Bali, Indonesia. <br>
-								<br> <a href="#">Show Map</a>
-							</p>
-
-						</div> <a class="booking-item" href="#">
-							<div class="row">
-
-								<div class="col-md-2">
-									<h5>From</h5>
-									<span class="booking-item-price">$100</span><span
-										class="btn btn-primary">Book Now</span>
-								</div>
-
-								<div class="col-md-4">
-
-
-									<div class="booking-item-img-wrap">
-										<img src="{% static 'img/kanakuta.jpg'%}"  alt="Image Alternative text" title="" />
-										<div class="booking-item-img-num">
-											<i class="fa fa-picture-o"></i>8
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-							<!--end of div row-->
-
-					</a>
-
-					</li>
-
-
-					<!--5-->
-
-					<li>
-
-						<div class="col-md-12">
-							<div class="header">
-								<br>
-								<h3 class="booking-item-title">Mantra Sakala Resort & Beach Club</h3>
-							</div>
-
-
-						</div>
-						<!-- end of col md 8-->
-						<div class="col-md-6" style="margin: 0 auto;">
-							<ul class="slimmenu" id="slimmenu">
-								<li class="active"><a href="#">Services</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Concierge</a></li>
-										<li><a href="#">Laundry & dry cleaning</a></li>
-										<li><a href="#">Concierge</a></li>
-										<li><a href="#">24-hour room service</a></li>
-										<li><a href="#">Massage</a></li>
-										<li><a href="#">Wi-Fi</a></li>
-
-									</ul></li>
-
-								<li class="active"><a href="#">Facilities</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">EXECUTIVE LOUNGE</a></li>
-										<li><a href="#">BUSINESS CENTER</a></li>
-										<li><a href="#">MEETINGS</a></li>
-										<li><a href="#">SWIMMING POOL</a></li>
-										<li><a href="#">FITNESS CENTER</a></li>
-										<li><a href="#">steamroom</a></li>
-										<li><a href="#">sauna</a></li>
-										<li><a href="#">spa</a></li>
-										<li><a href="#">valet parking</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Rooms Available</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Grand Deluxe</a></li>
-										<li><a href="#">Executive Room</a></li>
-										<li><a href="#">Keraton Suite</a></li>
-									</ul></li>
-							</ul>
-							<br>
-							<p class="booking-item-address">
-								<i class="fa fa-map-marker"></i> Jl. Pratama No. 95, Tanjung Benoa, Nusa Dua, Bali, Indonesia. <br>
-								<br> <a href="#">Show Map</a>
-							</p>
-
-						</div> <a class="booking-item" href="#">
-							<div class="row">
-
-								<div class="col-md-2">
-									<h5>From</h5>
-									<span class="booking-item-price">$130</span><span
-										class="btn btn-primary">Book Now</span>
-								</div>
-
-								<div class="col-md-4">
-
-
-									<div class="booking-item-img-wrap">
-										<img src= "{% static 'img/mantrasakala.jpg'%}" alt="Image Alternative text"
-											title="" />
-										<div class="booking-item-img-num">
-											<i class="fa fa-picture-o"></i>8
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-							<!--end of div row-->
-
-					</a>
-
-					</li>
+					
 				</ul>
 
 
 
 			</div>
 			<!--end of col md 12-->
+		</div>
 		</div>
 		<div class="gap"></div>
 	</div>

@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
+from django import template
 
-
+register=template.Library()
 
 # Create your models here.
 
@@ -23,6 +24,10 @@ class HotelInfo(models.Model):
     class Meta:
         managed = True
         db_table = 'HotelInfo'
+
+    @register.filter(name='serviceparse')
+    def serviceparse(val):
+        return val.split(",")
 
 
 class Roominfo(models.Model):

@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^signup/', views.signup),
     url(r'^signupUser/', views.signupUser),
     url(r'^showBooking/', views.showBookingPage),
+    url(r'^callPriceRefresh/', views.callPriceRefresh),
     url(r'^showBookingConfirmation/', views.showBookingConfirmation),
     url(r'^showUserProfile/', views.showUserProfile),
     url(r'^showUserProfileBookingHistory/', views.showUserProfileBookingHistory),
